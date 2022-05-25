@@ -35,7 +35,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Dashboard"
+        initialRouteName="list"
         screenOptions={{ headerShown: true }}
       >
         <Stack.Screen

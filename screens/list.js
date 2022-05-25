@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, DataTable } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useForm } from "react-hook-form";
 import {
   Box,
   FlatList,
@@ -15,9 +16,12 @@ import {
   Flex,
   CardItem,
   ScrollView,
+  FormControl,
   Pressable,
   View,
   Divider,
+  Select,
+  CheckIcon,
   Icon,
   Item,
   Spacer,
@@ -33,13 +37,19 @@ const Table = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   const [search, setSearch] = useState("");
   const [visible, setvisible] = useState(false);
+  const [limit, setLimit] = useState(5);
   const handleChange = (e) => {
     setSearch(e);
   };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   useEffect(() => {
     onSubmit();
-  }, []);
+  }, [limit]);
 
   const searchFilter = (text) => {
     if (text) {
@@ -57,57 +67,23 @@ const Table = ({ navigation }) => {
       setSearch(text);
     }
   };
-  // const styleSheet = StyleSheet.create({
-  //   MainContainer: {
-  //     flex: 1,
-  //     backgroundColor: "white",
-  //   },
-
-  //   item: {
-  //     paddingLeft: 15,
-  //     paddingTop: 8,
-  //     paddingBottom: 8,
-  //   },
-
-  //   itemText: {
-  //     fontSize: 24,
-  //     color: "black",
-  //   },
-
-  //   footerStyle: {
-  //     borderTopColor: "red",
-  //     borderTopWidth: 2,
-  //     borderBottomColor: "red",
-  //     borderBottomWidth: 2,
-  //   },
-  // });
-  // const Footer_Component = () => {
-  //   return (
-  //     <View
-  //       style={{
-  //         height: 44,
-  //         width: "100%",
-  //         backgroundColor: "#00BFA5",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       <Text style={{ fontSize: 24, color: "white" }}>
-  //         {" "}
-  //         Sample FlatList Footer{" "}
-  //       </Text>
-  //     </View>
-  //   );
-  // };
 
   const onSubmit = async () => {
     try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        limit: limit,
+      });
       var requestOptions = {
-        method: "GET",
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
         redirect: "follow",
       };
       const response = await fetch(
-        "http://localhost:8080/getall/alldetails/details",
+        "http://localhost:8080/pagenation",
         requestOptions
       );
       if (response.ok) {
@@ -120,12 +96,40 @@ const Table = ({ navigation }) => {
       console.log(err);
     }
   };
+
+  const Newfun = (itemValue) => {
+    const integ = parseInt(itemValue);
+    setLimit(integ);
+  };
   return (
     <NativeBaseProvider>
       <Box>
         <Center>
           <Text fontSize={30}> USER DETAILS </Text>
         </Center>
+        <Box mt="5" ml={5} size="20">
+          <FormControl>
+            <FormControl.Label> limit </FormControl.Label>
+
+            <Select
+              {...register("limit", {
+                value: { limit },
+              })}
+              selectedValue={limit}
+              minWidth={200}
+              placeholder="limit"
+              onValueChange={(itemValue) => Newfun(itemValue)}
+            >
+              <Select.Item label="10" value="10" />
+              <Select.Item label="15" value="15" />
+              <Select.Item label="20" value="20" />
+              <Select.Item label="30" value="30" />
+              <Select.Item label="50" value="50" />
+              <Select.Item label="100" value="100" />
+              <Select.Item label="150" value="150" />
+            </Select>
+          </FormControl>
+        </Box>
 
         <Box alignItems="flex-end">
           <TextInput
@@ -136,7 +140,6 @@ const Table = ({ navigation }) => {
             onChangeText={(text) => searchFilter(text)}
           />
         </Box>
-
         <Divider w="100%" mt="4" thickness="2" bg="black" />
         <View style={{ flex: 1, flexDirection: "row" }}>
           <Text style={{ flex: 1, fontSize: 20, fontFamily: "bold" }}>
