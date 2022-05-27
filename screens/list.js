@@ -107,7 +107,7 @@ const Table = ({ navigation }) => {
         <Center>
           <Text fontSize={30}> USER DETAILS </Text>
         </Center>
-        <Box mt="5" ml={5} size="20">
+        <Box mt="5" ml={5} size="50px" flex={2}>
           <FormControl>
             <FormControl.Label> limit </FormControl.Label>
 
@@ -116,17 +116,20 @@ const Table = ({ navigation }) => {
                 value: { limit },
               })}
               selectedValue={limit}
-              minWidth={200}
               placeholder="limit"
               onValueChange={(itemValue) => Newfun(itemValue)}
+              _selectedItem={{
+                bg: "danger.300",
+                endIcon: <CheckIcon size={30} />,
+              }}
             >
-              <Select.Item label="10" value="10" />
-              <Select.Item label="15" value="15" />
-              <Select.Item label="20" value="20" />
-              <Select.Item label="30" value="30" />
-              <Select.Item label="50" value="50" />
-              <Select.Item label="100" value="100" />
-              <Select.Item label="150" value="150" />
+              <Select.Item label="10" value="10" width={25} />
+              <Select.Item label="15" value="15" width={25} />
+              <Select.Item label="20" value="20" width={25} />
+              <Select.Item label="30" value="30" width={25} />
+              <Select.Item label="50" value="50" width={25} />
+              <Select.Item label="100" value="100" width={25} />
+              <Select.Item label="150" value="150" width={25} />
             </Select>
           </FormControl>
         </Box>

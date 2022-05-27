@@ -25,7 +25,7 @@ import { StyleSheet } from "react-native";
 import SideBar from "../components/sidebar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const Dashboard = ({ navigation }) => {
+const SuperDashboard = ({ navigation }) => {
   const profileNav = () => {
     navigation.navigate("Profile");
   };
@@ -134,4 +134,4 @@ const Dashboard = ({ navigation }) => {
     </NativeBaseProvider>
   );
 };
-export default Dashboard;
+export default SuperDashboard;

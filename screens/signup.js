@@ -29,13 +29,6 @@ const Signin = ({ navigation }) => {
   const [ema, setEma] = React.useState(false);
   const [confirmpassword, setConfirmpass] = React.useState(false);
   const [Role, setRole] = React.useState("");
-  //   const [datapass, setValuepass] = React.useState("");
-  //   const [dataconfir, setValueconfir] = React.useState("");
-  //   const [datafirstname, setValuefstname] = React.useState("");
-  //   const [datalastname, setValuelstname] = React.useState("");
-  //   const handleChange = async () => {
-  //     //console.log(data);
-  //   }
 
   const onSubmit = async (data) => {
     try {
@@ -65,15 +58,15 @@ const Signin = ({ navigation }) => {
 
       if (data.password == data.confirmpassword) {
         if (response.ok) {
-          console.log(response, "zzzzzzzzzzzzzS");
+          console.log(response, "response ok");
           const data = await response.json();
-          console.log(data, "qqqqqqqqqqqS");
+          console.log(data, "data");
 
-          navigation.navigate("NewLogin");
+          navigation.navigate("Loginn");
         }
         if (response.status == 409) {
           setEma(true);
-          alert("jhshgh");
+          alert("email already exist");
         }
       } else if (data.password != data.confirmpassword) {
         setConfirmpass(true);
@@ -84,17 +77,6 @@ const Signin = ({ navigation }) => {
       setEma(true);
     }
   };
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log(data);
-  //       navigation.navigate("Login");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   return (
     <NativeBaseProvider>
       <Box flex={1} m="10">

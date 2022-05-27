@@ -22,6 +22,11 @@ import EditFAQ from "./screens/EditFAQ";
 import Report from "./screens/Report";
 import EditReport from "./screens/EditReport";
 import SideBar from "./components/sidebar";
+import Loginn from "./screens/Loginn";
+import FeatureReq from "./screens/featurereq";
+import UpdateFeature from "./screens/UpdateFeature";
+import Sub from "./screens/Sub";
+import UpdateSub from "./screens/updatesub";
 
 // import Home from "./screens/Home";
 
@@ -35,7 +40,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="list"
+        initialRouteName="Sub"
         screenOptions={{ headerShown: true }}
       >
         <Stack.Screen
@@ -127,6 +132,31 @@ const App = () => {
           component={EditReport}
           name="EditReport"
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          component={Loginn}
+          name="Loginn"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          component={FeatureReq}
+          name="FeatureReq"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          component={UpdateFeature}
+          name="UpdateFeature"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          component={Sub}
+          name="Sub"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          component={UpdateSub}
+          name="UpdateSub"
+          options={{ headerShown: true }}
         />
       </Stack.Navigator>
     </NavigationContainer>
